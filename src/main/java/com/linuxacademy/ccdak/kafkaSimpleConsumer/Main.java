@@ -1,5 +1,6 @@
 package com.linuxacademy.ccdak.kafkaSimpleConsumer;
 
+import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 import java.time.Duration;
@@ -15,7 +16,7 @@ public class Main {
             return;
         }
 
-        var config=new Properties();
+        Properties config=new Properties();
 
         config.put("bootstrap.servers","localhost:9092");
         config.put("enable.auto.commit","true");
@@ -23,11 +24,11 @@ public class Main {
         config.put("value.deserializer","org.apache.kafka.common.serializer.StringDeserializer");
         config.put("auto.offset.reset","earliest");
 
-        try(var consumer = new KafkaConsumer<String, String>(config)){
+        try(KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(config)){
             consumer.subscribe(List.of(args[0]));
 
             while(true){
-                var events=consumer.poll(Duration.ofSeconds(1));
+                ConsumerRecords<String,String> events=consumer.poll(Duration.ofSeconds(1));
                 if (events.isEmpty()) {
                     System.out.println("No events any more!");
                     return;
