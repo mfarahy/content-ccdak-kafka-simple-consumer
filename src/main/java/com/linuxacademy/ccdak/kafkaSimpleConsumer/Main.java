@@ -27,7 +27,7 @@ public class Main {
         config.put("auto.offset.reset","earliest");
 
         try(KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(config)){
-            consumer.subscribe(Arrays.asList(args));
+            consumer.subscribe(Arrays.asList("inventory purchases"));
 
             while(true){
                 ConsumerRecords<String,String> events=consumer.poll(Duration.ofSeconds(1));
