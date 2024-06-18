@@ -16,8 +16,8 @@ public class Main {
 
         config.put("bootstrap.servers","localhost:9092");
         config.put("enable.auto.commit","true");
-        config.put("key.deserializer","org.apache.kafka.common.serializer.StringDeserializer");
-        config.put("value.deserializer","org.apache.kafka.common.serializer.StringDeserializer");
+        config.put("key.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
+        config.put("value.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
         config.put("auto.offset.reset","earliest");
 
         try(KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(config)){
