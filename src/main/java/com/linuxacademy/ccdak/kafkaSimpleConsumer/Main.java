@@ -5,6 +5,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -26,7 +27,7 @@ public class Main {
         config.put("auto.offset.reset","earliest");
 
         try(KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(config)){
-            consumer.subscribe(List.of(args[0]));
+            consumer.subscribe(Arrays.asList(args));
 
             while(true){
                 ConsumerRecords<String,String> events=consumer.poll(Duration.ofSeconds(1));
