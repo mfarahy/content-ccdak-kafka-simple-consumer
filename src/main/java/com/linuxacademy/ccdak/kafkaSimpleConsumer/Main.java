@@ -19,6 +19,8 @@ public class Main {
         config.put("key.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
         config.put("value.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
         config.put("auto.offset.reset","earliest");
+        config.put("allow.auto.create.topics","false");
+        config.put("group.id","test");
 
         try(KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(config)){
             consumer.subscribe(Arrays.asList("inventory purchases"));
