@@ -1,5 +1,6 @@
 package com.linuxacademy.ccdak.kafkaSimpleConsumer;
 
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
@@ -33,7 +34,7 @@ public class Main {
                     System.out.println("No events any more!");
                     return;
                 }
-                for(var event:events){
+                for(ConsumerRecord<String,String> event:events){
                     System.out.format("%s\n", event.value());
                 }
             }
