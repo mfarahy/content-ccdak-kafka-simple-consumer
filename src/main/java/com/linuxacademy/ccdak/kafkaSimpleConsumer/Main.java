@@ -18,12 +18,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        final Properties properties = new Properties();
-        properties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        properties.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
-        properties.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
-        properties.put(StreamsConfig.APPLICATION_ID_CONFIG, "inventory-data");
-        properties.put(StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG, 0);
+        final Properties properties = getProperties();
 
         final StreamsBuilder builder = new StreamsBuilder();
         final KStream<String, String> source = builder
@@ -67,6 +62,17 @@ public class Main {
                 System.exit(-1);
             }
         }
+    }
+
+    private static Properties getProperties() {
+        final Properties properties = new Properties();
+        properties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        properties.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+        properties.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+        properties.put(StreamsConfig.APPLICATION_ID_CONFIG, "inventory-data");
+        properties.put(StreamsConfig.STATESTORE_CACHE_MAX_BYTES_CONFIG, 0);
+        properties.put(StreamsConfig.REPLICATION_FACTOR_CONFIG, 1);
+        return properties;
     }
 
 }
