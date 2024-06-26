@@ -37,13 +37,14 @@ public class Main {
         config.put("group.id", "topic-to-file");
         config.put("auto.offset.reset", "earliest");
         config.put("enable.auto.commit", "false");
+        config.put("allow.auto.create.topics","false");
 
         try (KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(config)) {
             consumer.subscribe(Arrays.asList("inventory_purchases"));
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
                 while (true) {
-                    ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(3));
+                    ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(5));
                     if (records.isEmpty()) {
                         System.out.println("No event remains, going to end");
                         break;
@@ -58,6 +59,8 @@ public class Main {
                             System.exit(-1);
                         }
                     });
+
+                    consumer.commitAsync();
                 }
             } catch (IOException e) {
                 System.out.println(e.getMessage());
