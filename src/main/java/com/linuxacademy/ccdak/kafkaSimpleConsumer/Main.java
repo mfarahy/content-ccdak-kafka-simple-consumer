@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -38,7 +39,7 @@ public class Main {
         config.put("enable.auto.commit", "false");
 
         try (KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(config)) {
-            consumer.subscribe(List.of("inventory_purchases"));
+            consumer.subscribe(Arrays.asList("inventory_purchases"));
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
                 while (true) {
