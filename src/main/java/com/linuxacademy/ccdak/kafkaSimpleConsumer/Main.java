@@ -9,7 +9,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Properties;
 
 public class Main {
@@ -37,7 +36,7 @@ public class Main {
         config.put("group.id", "topic-to-file");
         config.put("auto.offset.reset", "earliest");
         config.put("enable.auto.commit", "false");
-        config.put("allow.auto.create.topics","false");
+        config.put("allow.auto.create.topics", "false");
 
         try (KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(config)) {
             consumer.subscribe(Arrays.asList("inventory_purchases"));
@@ -54,12 +53,14 @@ public class Main {
                         try {
                             writer.write(String.format("key=%s, value=%s, topic=%s, partition=%d, offset=%d\n",
                                     record.key(), record.value(), record.topic(), record.partition(), record.offset()));
+
+                            System.out.print(".");
                         } catch (IOException e) {
                             System.out.println(e.getMessage());
                             System.exit(-1);
                         }
                     });
-
+                    writer.flush();
                     consumer.commitAsync();
                 }
             } catch (IOException e) {
