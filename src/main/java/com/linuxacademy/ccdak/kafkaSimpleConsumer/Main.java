@@ -52,7 +52,7 @@ public class Main {
 
                     records.forEach(record -> {
                         try {
-                            writer.write(String.format("key=%s, value=%s, topic=%s, partition=%d, offset=%d",
+                            writer.write(String.format("key=%s, value=%s, topic=%s, partition=%d, offset=%d\n",
                                     record.key(), record.value(), record.topic(), record.partition(), record.offset()));
                         } catch (IOException e) {
                             System.out.println(e.getMessage());
