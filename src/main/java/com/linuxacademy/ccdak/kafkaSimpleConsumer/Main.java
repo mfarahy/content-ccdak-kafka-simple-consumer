@@ -31,8 +31,8 @@ public class Main {
 
         Properties config = new Properties();
         config.put("bootstrap.servers", "localhost:9092");
-        config.put("key.serializer", org.apache.kafka.common.serialization.StringSerializer.class.getName());
-        config.put("value.serializer", org.apache.kafka.common.serialization.StringSerializer.class.getName());
+        config.put("key.deserializer", org.apache.kafka.common.serialization.StringDeserializer.class.getName());
+        config.put("value.deserializer", org.apache.kafka.common.serialization.StringDeserializer.class.getName());
         config.put("client.id", "topic-to-file");
         config.put("group.id", "topic-to-file");
         config.put("auto.offset.reset", "earliest");
