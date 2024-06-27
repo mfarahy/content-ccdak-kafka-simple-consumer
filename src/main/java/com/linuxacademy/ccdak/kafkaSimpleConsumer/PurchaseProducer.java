@@ -22,7 +22,7 @@ public class PurchaseProducer {
         Random rnd = new Random(System.currentTimeMillis());
         int i = 0;
         while (true) {
-            Purchase purchase = new Purchase((i + 1) * 11, products[rnd.nextInt(products.length)], rnd.nextInt(20) + 1);
+            Purchase purchase = new Purchase((i++ + 1) * 11, products[rnd.nextInt(products.length)], rnd.nextInt(20) + 1);
             ProducerRecord<String, Purchase> record = new ProducerRecord<>("inventory_purchases", String.valueOf(purchase.getId()), purchase);
 
             producer.send(record, new Callback() {
