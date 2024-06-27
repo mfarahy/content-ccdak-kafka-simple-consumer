@@ -34,6 +34,7 @@ public class PurchaseConsumer {
                 ConsumerRecords<String, Purchase> records = consumer.poll(Duration.ofSeconds(3));
                 consumedRecords += records.count();
                 records.forEach(record -> {
+                    System.out.print(".");
                     try {
                         writer.write(gson.toJson(record.value()));
                         writer.write("\n");
@@ -42,6 +43,7 @@ public class PurchaseConsumer {
                     }
                 });
             }
+            writer.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
