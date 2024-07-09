@@ -1,5 +1,6 @@
 package com.linuxacademy.ccdak.kafkaSimpleConsumer;
 
-public record ProducerOptions(String topic) {
-
+public class ProducerOptions {
+    public String topic;
+    public String bootstrapServers;
 }
